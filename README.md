@@ -15,7 +15,7 @@
 
 ## 1. 프로젝트 소개
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/51a7a697-c9a7-4f9c-99ea-6034b06b728b" width="100%">
+  <img src="https://github.com/user-attachments/assets/314f498e-c487-4c25-9192-2e2b2b770e3e" width="100%">
 <br>
 <게임 메인 이미지>
 
@@ -32,12 +32,12 @@
 <br>
 <table align="center">
   <tr>
-    <td><img src="https://github.com/user-attachments/assets/65bc92ba-d192-461a-9908-10b2fa3f4f97" width="400" height="250"></td>
-    <td><img src="https://github.com/user-attachments/assets/deb907b9-6a72-4bf9-a2a1-5fa7de03256c" width="400" height="250"></td>
+    <td><img src="https://github.com/user-attachments/assets/ff09c4af-fdaa-40e0-9aff-dcb7e6783cf4" width="400" height="250"></td>
+    <td><img src="https://github.com/user-attachments/assets/1a42809e-84ea-4f0d-a781-7993784b5804" width="400" height="250"></td>
   </tr>
   <tr>
-    <td><img src="https://github.com/user-attachments/assets/a7180180-1493-4aaa-978e-0dc63d738244" width="400" height="250"></td>
-    <td><img src="https://github.com/user-attachments/assets/bac041c8-5f9c-4a94-a2ed-351c309469e0" width="400" height="250"></td>
+    <td><img src="https://github.com/user-attachments/assets/c32b9c13-d258-4d49-8df6-7a1230c6d0e4" width="400" height="250"></td>
+    <td><img src="https://github.com/user-attachments/assets/e2aa5bda-1a1a-4ad2-bd13-1ba7ead6d804" width="400" height="250"></td>
   </tr>
 </table>
 <div align="center">
