@@ -70,3 +70,4 @@
 | Unity Shader | 포스트 프로세싱에 최적화된 메테리얼 자체 제작 |
 | 물리 충돌 최적화 | Physics2D.BoxCast 및 OverlapBoxAll을 활용하여 접지 판정 및 스킬 범위 충돌 감지 구현 |
 | CineMachine | 카메라 연출 구현 |
+| UI 자동화 | Enum 상태정보와 연계된 UI 데이터 자동 동기화 |
