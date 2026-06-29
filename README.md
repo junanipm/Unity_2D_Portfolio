@@ -2,10 +2,11 @@
 ![Unity](https://img.shields.io/badge/Unity-6000-black?logo=unity)
 ![C#](https://img.shields.io/badge/C%23-239120?logo=c-sharp&logoColor=white)
 ![Platform](https://img.shields.io/badge/Platform-PC-blue)
+<!--- 
 ## 0.목차
 -[프로젝트 소개](#1.-프로젝트-소개)
 
-<!--- 
+
 
 -[핵심 기능](#핵심-기능)
 
@@ -24,6 +25,8 @@
 <div align="left">
   
 ●  개발 기간: 2025.03~2025.11
+
+●  개발 인원: 5인(기획 1, 개발 1, 아트 3)
 <br>
 ●  Unity 2D 액션 플랫포머 게임입니다.
 <br>
@@ -50,3 +53,20 @@
 
 보스를 처치하며 세상에 색과 빛을 되찾아가는 모험을 떠납니다.
 색을 되찾아 갈 때 마다 새로운 무기와 스킬을 얻을 수 있으며, 이를 통해 상황과 플레이어의 취향에 맞는 다양한 액션을 느낄 수 있습니다.
+
+## 2. 개발 환경
+<br>
+● Unity 6000.0.44f1
+<br>
+● C#
+<br>
+● Visual Studio Code
+
+## 3. 사용 기술
+| 기술 | 설명 |
+| --- | --- |
+| 디자인 패턴 | Singleton 패턴과 Interface를 이용한 코드 개선 <br> Enum 상태 정보 및 싱글톤 활용으로 플레이어 공격 스킬의 쿨타임 적립 및 최적화|
+| URP Renderer | 포스트 프로세싱 구현 |
+| Unity Shader | 포스트 프로세싱에 최적화된 메테리얼 자체 제작 |
+| 물리 충돌 최적화 | Physics2D.BoxCast 및 OverlapBoxAll을 활용하여 접지 판정 및 스킬 범위 충돌 감지 구현 |
+| CineMachine | 카메라 연출 구현 |
