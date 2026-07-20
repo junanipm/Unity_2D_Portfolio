@@ -22,7 +22,11 @@
 
 <br>
 
-https://github.com/user-attachments/assets/499b4dde-9797-490f-a01a-88906aad7210
+
+https://github.com/user-attachments/assets/374db197-5e83-4456-84c6-760bcdece79e
+
+
+
 
 <지스타 트레일러>
 
