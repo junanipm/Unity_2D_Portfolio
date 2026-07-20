@@ -21,6 +21,12 @@
 <게임 메인 이미지>
 
 <br>
+
+https://github.com/user-attachments/assets/499b4dde-9797-490f-a01a-88906aad7210
+
+<지스타 트레일러>
+
+<br>
 <br>
 <div align="left">
   
