@@ -81,3 +81,10 @@ https://github.com/user-attachments/assets/374db197-5e83-4456-84c6-760bcdece79e
 | 물리 충돌 최적화 | Physics2D.BoxCast 및 OverlapBoxAll을 활용하여 접지 판정 및 스킬 범위 충돌 감지 구현 |
 | CineMachine | 카메라 연출 구현 |
 | UI 자동화 | Enum 상태정보와 연계된 UI 데이터 자동 동기화 |
+
+<br>
+## 4. 플레이 영상
+
+https://youtu.be/TjwIxO0GERE
+
+
