@@ -83,6 +83,7 @@ https://github.com/user-attachments/assets/374db197-5e83-4456-84c6-760bcdece79e
 | UI 자동화 | Enum 상태정보와 연계된 UI 데이터 자동 동기화 |
 
 <br>
+
 ## 4. 플레이 영상
 
 https://youtu.be/TjwIxO0GERE
