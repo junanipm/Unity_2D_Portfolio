@@ -127,6 +127,52 @@ if (hit.collider != null) break;
 
 수정 후 통과 현상 재현되지 않음. 동일 원리로 접지 판정(`CheckGrounded`)에도 BoxCast 적용해 발판 모서리 착지 불안정 문제 함께 방지함.
 
+
+**변신 시스템 상태 불일치 문제**
+
+하나의 상태 변화에 맞춰 공격·스킬·UI·애니메이션이 동시에 교체되어야 했으나, 각 시스템이 상태를 개별적으로 판단해 상태 전환 시 일부 기능만 전환되고 나머지는 이전 상태를 참조하는 오류 반복 발생. 개발 초반 두 달간 QA마다 이런 상태 불일치 버그 5건 이상 발견, 변신 단계 하나 추가 시 관련 스크립트 4~5개를 일일이 수정해야 해 하루 이상 소요됨.
+
+```csharp
+// 문제 상황 재구성 — 시스템마다 상태를 각자 다른 방식으로 참조
+// (애니메이션은 A 스크립트의 currentColor, 공격 판정은 B 스크립트의 nowState,
+//  UI는 C 스크립트의 stateIndex를 각각 별도로 들고 있어 갱신 시점이 어긋남)
+```
+
+원인 추적 결과, 각 시스템이 저마다 다른 변수·방식으로 상태를 판단하고 있다는 공통 원인 발견. 상태를 관리하는 Enum을 프로젝트 전역의 단일 기준으로 정의하고, 모든 시스템이 이 기준(`AnimatorConverter.currentState`)만 참조하도록 재설계함.
+
+```csharp
+public enum PlayerState
+{
+    White  = 0,  // 변신 전
+    Blue   = 1,
+    Yellow = 2,
+    Purple = 3
+}
+```
+
+애니메이터에는 상태값을 정수로 캐스팅해 전달, 트레일 색상·이미션 머티리얼 등 리소스도 동일한 상태값 하나로 함께 전환되도록 구현함.
+
+```csharp
+// ApplyState(state) — 상태 하나로 애니메이터/트레일/머티리얼 동시 전환
+animator.runtimeAnimatorController = selectedAnim;
+animator.SetInteger("CurrentMode", (int)state);
+spriteRenderer.material = emissionMat;
+trail.material = trailMat;
+```
+
+스킬 쿨타임은 상태별로 값이 달라야 해 `Dictionary<PlayerState, float>`로 분리 관리, 변신 후 복귀해도 이전 상태의 쿨타임이 그대로 유지되도록 구현함.
+
+```csharp
+private Dictionary<PlayerState, float> cooldownDurations = new Dictionary<PlayerState, float>()
+{
+    { PlayerState.Blue,   5f },
+    { PlayerState.Yellow, 10f },
+    { PlayerState.Purple, 5f },
+};
+public bool CanUseSkill(PlayerState state) => currentCooldown[state] <= 0f;
+```
+
+재설계 이후 상태 불일치 버그 QA 0건으로 감소. 신규 변신 상태 추가 작업도 Enum 값과 Dictionary 항목 추가만으로 처리 가능해져, 작업 시간 단축됨.
 <br>
 
 
