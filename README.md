@@ -100,9 +100,11 @@ https://github.com/user-attachments/assets/374db197-5e83-4456-84c6-760bcdece79e
 
 ## 5. 트러블슈팅
 
-> [!WARNING]
+
 >**대시 스킬의 벽 충돌 판정 오류 (Raycast → BoxCast)**
 
+● 문제 상황
+<br>
 블루 상태 스킬 사용 중 얇은 기둥·모서리를 그대로 통과하는 버그 발생. 원인은 벽/플랫폼 판정에 `Physics2D.Raycast` 사용 — 두께 없는 선(line)만 검사해, 빠른 이동 시 프레임 사이에서 장애물을 스쳐 지나가면 충돌 미검출됨.
 
 ```csharp
@@ -111,7 +113,8 @@ RaycastHit2D hit  = Physics2D.Raycast(rigid.position, direction, checkDistance, 
 RaycastHit2D hit2 = Physics2D.Raycast(rigid.position, direction, checkDistance, LayerMask.GetMask("Platform"));
 if (hit.collider != null || hit2.collider != null) break;
 ```
-
+● 원인 추적 및 해결 방법
+<br>
 캐릭터 콜라이더 크기를 반영한 `Physics2D.BoxCast`로 교체, 면적 기반 판정으로 전환함.
 
 ```csharp
@@ -125,21 +128,28 @@ RaycastHit2D hit = Physics2D.BoxCast(
 );
 if (hit.collider != null) break;
 ```
-
+● 결과
+<br>
 수정 후 통과 현상 재현되지 않음. 동일 원리로 접지 판정(`CheckGrounded`)에도 BoxCast 적용해 발판 모서리 착지 불안정 문제 함께 방지함.
 
-> [!WARNING]
+<br>
+
 >**변신 시스템 상태 불일치 문제**
 
-하나의 상태 변화에 맞춰 공격·스킬·UI·애니메이션이 동시에 교체되어야 했으나, 각 시스템이 상태를 개별적으로 판단해 상태 전환 시 일부 기능만 전환되고 나머지는 이전 상태를 참조하는 오류 반복 발생. 개발 초반 두 달간 QA마다 이런 상태 불일치 버그 5건 이상 발견, 변신 단계 하나 추가 시 관련 스크립트 4~5개를 일일이 수정해야 해 하루 이상 소요됨.
+● 문제상황
+<br>
+하나의 상태 변화에 맞춰 공격·스킬·UI·애니메이션이 동시에 교체되어야 했으나, 각 시스템이 상태를 개별적으로 판단해 상태 전환 시 일부 기능만 전환되고 나머지는 이전 상태를 참조하는 오류 반복 발생. 
+개발 초반 두 달간 QA마다 이런 상태 불일치 버그 5건 이상 발견, 변신 단계 하나 추가 시 관련 스크립트 4~5개를 일일이 수정해야 해 하루 이상 소요됨.
 
 ```csharp
 // 문제 상황 재구성 — 시스템마다 상태를 각자 다른 방식으로 참조
 // (애니메이션은 A 스크립트의 currentColor, 공격 판정은 B 스크립트의 nowState,
 //  UI는 C 스크립트의 stateIndex를 각각 별도로 들고 있어 갱신 시점이 어긋남)
 ```
-
-원인 추적 결과, 각 시스템이 저마다 다른 변수·방식으로 상태를 판단하고 있다는 공통 원인 발견. 상태를 관리하는 Enum을 프로젝트 전역의 단일 기준으로 정의하고, 모든 시스템이 이 기준(`AnimatorConverter.currentState`)만 참조하도록 재설계함.
+● 원인 추적 및 해결 방법
+<br>
+원인 추적 결과, 각 시스템이 저마다 다른 변수·방식으로 상태를 판단하고 있다는 공통 원인 발견.
+상태를 관리하는 Enum을 프로젝트 전역의 단일 기준으로 정의하고, 모든 시스템이 이 기준(`AnimatorConverter.currentState`)만 참조하도록 재설계함.
 
 ```csharp
 public enum PlayerState
@@ -172,7 +182,8 @@ private Dictionary<PlayerState, float> cooldownDurations = new Dictionary<Player
 };
 public bool CanUseSkill(PlayerState state) => currentCooldown[state] <= 0f;
 ```
-
+● 결과
+<br>
 재설계 이후 상태 불일치 버그 QA 0건으로 감소. 신규 변신 상태 추가 작업도 Enum 값과 Dictionary 항목 추가만으로 처리 가능해져, 작업 시간 단축됨.
 <br>
 
