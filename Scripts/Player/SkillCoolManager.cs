@@ -63,6 +63,9 @@ public class SkillCoolManager : MonoBehaviour
         float current = currentCooldown[state];
         float max = cooldownDurations[state];
 
+        if (max <= 0f)
+            return 0f;
+
         return Mathf.Clamp01(current / max);
     }
     public float GetCooldownDuration(PlayerState state)
