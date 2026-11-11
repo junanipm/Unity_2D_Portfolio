@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Portal : MonoBehaviour
 {
+    private bool isLeaving = false;
     [Header("이동하려는 씬")]
     public string nextScene;
     int StageNum;
@@ -81,9 +82,9 @@ public class Portal : MonoBehaviour
             currentTime += Time.deltaTime;
             portalSlider.value = currentTime;
 
-            if (portalSlider.value == interTime)
+            if (!isLeaving && portalSlider.value >= interTime)
             {
-
+                isLeaving = true;
                 StartCoroutine(FadeOutBeforeSceneChange());
             }
         }
