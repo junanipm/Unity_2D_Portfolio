@@ -44,6 +44,9 @@ public class Enemy : MonoBehaviour
     protected bool isTracing = false;
     protected bool isAttacking;
     protected bool hasAttacked = false;
+    
+    protected Coroutine attackCoolCoroutine;
+    
     public int enemyAttackP = 10;
     [Header("오디오")]
     public AudioClip audioClip;
@@ -249,7 +252,8 @@ public class Enemy : MonoBehaviour
 
         if (isAttacking)
         {
-            StopCoroutine("EnemyAttackCool"); 
+            if (attackCoolCoroutine != null)
+                StopCoroutine(attackCoolCoroutine);
             animator.ResetTrigger("EnemyAttack"); 
 
             animator.Play("Knight_Idle_Anim"); 
@@ -325,7 +329,7 @@ public class Enemy : MonoBehaviour
     protected virtual void EnemyAttackReady()
     {
         isAttacking = true;
-        StartCoroutine(EnemyAttackCool());
+        attackCoolCoroutine = StartCoroutine(EnemyAttackCool());
     }
     protected virtual void EnemyAttack()
     {
